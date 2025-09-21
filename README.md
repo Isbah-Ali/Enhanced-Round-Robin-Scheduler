@@ -34,8 +34,6 @@ It is built in **Java Swing** and allows users to input processes, simulate sche
 - The initial time quantum is calculated as:  
 TQ = 0.8 × BTmax
 
-yaml
-Copy code
 - This ensures that:  
 - Shorter jobs may finish in one go.  
 - Longer jobs still get enough CPU time to make progress.  
