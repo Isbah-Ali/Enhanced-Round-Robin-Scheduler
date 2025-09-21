@@ -17,11 +17,58 @@ It is built in **Java Swing** and allows users to input processes, simulate sche
   - Turnaround Time for each process  
   - Average Waiting Time  
   - Average Turnaround Time  
-- Clean, styled interface with modern UI elements.  
+- Clean, styled interface with modern UI elements.
+
+
+## HOW ALGORITHM WORKS:
+
+**1. Input**  
+- Each process has:  
+  - **Arrival Time (AT)** → when the process enters the ready queue.  
+  - **Burst Time (BT)** → how long it needs to finish execution.  
+
+---
+
+**2. Initial Time Quantum (TQ) Selection**  
+- The scheduler finds the **largest burst time (BTmax)** among all processes.  
+- The initial time quantum is calculated as:  
+TQ = 0.8 × BTmax
+
+yaml
+Copy code
+- This ensures that:  
+- Shorter jobs may finish in one go.  
+- Longer jobs still get enough CPU time to make progress.  
+
+---
+
+**3. Scheduling Loop**  
+- The system clock starts at **time = 0**.  
+- At each step:  
+- Add all processes with **AT ≤ current time** into the **Ready Queue**.  
+- If the ready queue is empty → advance the clock to the **next arrival time**.  
+- From the ready queue, processes are executed in **arrival order** using the current quantum `TQ`.  
+
+---
+
+**4. Execution Rules**  
+- For each process `P`:  
+- If **remaining time ≤ TQ** → run it completely and mark it **finished**.  
+- If **remaining time > TQ** → run it for `TQ` units, then put it back into the queue with updated remaining time.  
+
+---
+
+**5. Dynamic Quantum Adjustment**  
+- If in one full cycle **no process finishes**, the algorithm assumes the quantum was too small.  
+- In that case, the quantum is increased to:  
+TQ = BTmax
+- This prevents **starvation** and ensures all processes eventually complete.  
 
 
 ## 📷 Screenshots 
-<img width="1145" height="342" alt="image" src="https://github.com/user-attachments/assets/2bb671c8-39c8-4a7d-82a1-0fbd49b0c635" />
+<img width="837" height="301" alt="image" src="https://github.com/user-attachments/assets/84d0729d-b676-4dde-bc97-9618f2b553e7" />
+<img width="842" height="582" alt="image" src="https://github.com/user-attachments/assets/ac9e16b6-c9ad-4bd5-80d4-93be108c8761" />
+
 
  How It Works
 1. **Input Processes**  
